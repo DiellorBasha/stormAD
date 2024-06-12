@@ -1,0 +1,13 @@
+PREVENT-AD Data Release 7.0, 2011-2017 MRI data ("wave 1" MRI data)
+
+For questions please contact the PREVENT-AD Study Coordinator, Jennifer Tremblay-Mercier (jennifer.tremblay-mercier@douglas.mcgill.ca)
+
+This MRI data is part of PREVENT-AD Data Release 7.0, accessible to PREVENT-AD collaborators who agreed to the Data Use Agreement and Publication Policy. This is not a public data release. Please refer to the PREVENT-AD Data Sharing and Publication Policy document for instructions on how to acknowledge use of this data in publications.
+
+This MRI dataset comprises scans acquired between 2011 and 2017 for 383 PREVENT-AD participants who were cognitively normal at enrollment. Details on the differences in MRI protocols and head coil across timepoints/years are available in doi.org/10.1016/j.nicl.2021.102733
+
+Please note that while all participants were cognitively normal at enrollment, participants' cognitive performance may be the range of mild cognitive impairment (MCI) at study visits included in this dataset. These timepoints can be determined from the tabular data of the Data Release (variable "possible_MCI_visit" in Demographics table).
+
+Known issues can be found in the included BIDS Validator output.
+
+Please report any problematic issues to the Study Coordinator so that we can improve this dataset.

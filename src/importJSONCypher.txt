@@ -1,0 +1,4 @@
+% Cypher statements for loading json
+
+CALL apoc.load.json ("filepath") YIELD value
+RETURN value LIMIT 10 

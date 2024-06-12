@@ -1,0 +1,29 @@
+{
+
+"Name": "PREVENT-AD PET SUVR data",
+
+"BIDSVersion": "1.7.0",
+
+"DatasetType": "derivative",
+
+"GeneratedBy": [
+
+{
+
+"Name": "Villeneuve lab PET pipeline",
+
+"CodeURL": " https://github.com/villeneuvelab/vlpp",
+
+"Description": "In-house standard pipeline to process PET images and generate SUVR images. All derivatives are SUVR images. For amyloid (F18NAV4694), SUVR images referenced to the cerebellum gray matter or the whole cerebellum are available. For tau (18Fflortaucipir), SUVR images referenced to the inferior cerebellum gray matter are available."
+
+}
+
+],
+
+"ReferencesAndLinks": [
+
+"Reference to forthcoming paper to be added here"
+
+]
+
+}

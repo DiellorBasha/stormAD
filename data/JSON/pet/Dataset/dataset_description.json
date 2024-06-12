@@ -1,0 +1,13 @@
+{
+
+"Name": "PREVENT-AD PET data",
+
+"BIDSVersion": "1.7.0",
+
+"DatasetType": "raw",
+
+"HowToAcknowledge": "This data is accessible to PREVENT-AD collaborators who agreed to a Data Use Agreement and Publication Policy. This is not a public data release. Please refer to the PREVENT-AD Data Sharing and Publication Policy document for instructions on how to acknowledge.",
+
+"ReferencesAndLinks": [ "https://preventad.loris.ca", "Reference to forthcoming paper to be added here" ]
+
+}

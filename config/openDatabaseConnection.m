@@ -1,0 +1,4 @@
+function openDatabaseConnection
+   
+end
+

@@ -1,0 +1,15 @@
+{
+  "participant_id":{
+    "LongName": "Participant ID",
+    "Description": "participant identification code"
+  },
+   "sex":{
+    "LongName": "Participant Sex",
+    "Description": "sex of the participant"
+  },
+   "weight":{
+    "LongName": "Participant Weight",
+    "Description": "weight of the participant",
+    "Units": "kg"
+  }
+}

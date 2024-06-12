@@ -1,0 +1,4 @@
+
+NEO4J_URL=bolt://localhost:7687/pad;
+NEO4J_USERNAME=dbasha
+NEO4J_PASSWORD=neurospeed

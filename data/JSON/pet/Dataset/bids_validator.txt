@@ -1,0 +1,17 @@
+bids-validator@1.11.0
+	1: [WARN] Not all subjects/sessions/runs have the same scanning parameters. (code: 39 - INCONSISTENT_PARAMETERS)
+		./sub-MTL0377/ses-01/pet/sub-MTL0377_ses-01_trc-18Fflortaucipir_pet.nii.gz
+
+	Please visit https://neurostars.org/search?q=INCONSISTENT_PARAMETERS for existing conversations about this issue.
+
+	2: [WARN] The Authors field of dataset_description.json should contain an array of fields - with one author per field. This was triggered because there are no authors, which will make DOI registration from dataset metadata impossible. (code: 113 - NO_AUTHORS)
+
+	Please visit https://neurostars.org/search?q=NO_AUTHORS for existing conversations about this issue.
+
+        Summary:                 Available Tasks:        Available Modalities: 
+        517 Files, 7.13GB                                PET                   
+        128 - Subjects                                                         
+        1 - Session                                                            
+
+
+	If you have any questions, please post on https://neurostars.org/tags/bids.
