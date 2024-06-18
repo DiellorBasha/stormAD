@@ -1,4 +1,4 @@
-proj = matlab.project.rootProject;
+fproj = matlab.project.rootProject;
 
  % Read database configuration from a text file
     dbconfig = read_dbconfig('dbconfig.txt');
@@ -11,5 +11,8 @@ proj = matlab.project.rootProject;
         error('Connection failed: %s', neo4jconn.Message);
     end
 
+    % Add Brainstorm to search path
+    addpath(genpath('C:\Users\diell\Documents\brainstorm3'));
+    
     fprintf('Connected to Neo4j database at %s\n', dbconfig.NEO4J_URL);
     clear dbconfig; 
