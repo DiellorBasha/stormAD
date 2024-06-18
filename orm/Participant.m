@@ -19,6 +19,8 @@ classdef Participant < StormBase
             properties = struct('id', obj.participant_id, 'modalityId', obj.modality_id, 'derivativesId', obj.derivatives_id, 'name', obj.name);
             if ~nodeExists(obj, 'Participant', properties)
                 createNode(obj, 'Participant', properties);
+                obj.createRelationship('Modality', obj.modality_id, 'HAS_PARTICIPANT', 'Participant', obj.participant_id, struct());
+                obj.createRelationship('Derivatives', obj.derivatives_id, 'HAS_PARTICIPANT', 'Participant', obj.participant_id, struct());
             else
                 warning('Participant with ID %s already exists.', obj.participant_id);
             end
@@ -33,6 +35,8 @@ classdef Participant < StormBase
         end
         
         function delete(obj, id)
+            deleteRelationship(obj, 'Modality', obj.modality_id, 'HAS_PARTICIPANT', 'Participant', id);
+            deleteRelationship(obj, 'Derivatives', obj.derivatives_id, 'HAS_PARTICIPANT', 'Participant', id);
             deleteNode(obj, 'Participant', id);
         end
         
@@ -42,23 +46,12 @@ classdef Participant < StormBase
                 properties = struct('id', participant.participant_id, 'modalityId', participant.modality_id, 'derivativesId', participant.derivatives_id, 'name', participant.name);
                 if ~nodeExists(obj, 'Participant', properties)
                     createNode(obj, 'Participant', properties);
+                    obj.createRelationship('Modality', participant.modality_id, 'HAS_PARTICIPANT', 'Participant', participant.participant_id, struct());
+                    obj.createRelationship('Derivatives', participant.derivatives_id, 'HAS_PARTICIPANT', 'Participant', participant.participant_id, struct());
                 else
                     warning('Participant with ID %s already exists.', participant.participant_id);
                 end
             end
-        end
-        
-        function createSessionRelationship(obj, session)
-            % Ensure the session exists
-            sessionProps = struct('id', session.session_id, 'participantId', obj.participant_id, 'name', session.name);
-            if ~nodeExists(session, 'Session', sessionProps)
-                error('Session with ID %s does not exist.', session.session_id);
-            end
-            
-            % Create the relationship with the session_id property
-            query = sprintf('MATCH (p:Participant {id: "%s"}), (s:Session {id: "%s"}) CREATE (p)-[:HAS_SESSION {session_id: "%s"}]->(s)', ...
-                            obj.participant_id, session.session_id, session.session_id);
-            executeCypher(obj.graphconn, query);
         end
     end
 end

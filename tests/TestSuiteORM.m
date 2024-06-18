@@ -1,9 +1,13 @@
 %% Example Title
 % Summary of example objective
 % Create a test suite and run the tests for each class
-suite = testsuite({'TestDataset', 'TestModality', 'TestDerivatives', 'TestParticipant', 'TestSession', 'TestData', 'TestIntegration'});
+% Create a test suite and run the tests for each class
+% Create a test suite and run the tests for each class
+suite = testsuite({'TestDataset', 'TestModality', 'TestParticipant', 'TestSession', 'TestData', 'TestDerivatives', 'TestIntegration'});
 results = run(suite);
 disp(results);
+
+
 
 %% Section 1 Title
 % Description of first code block

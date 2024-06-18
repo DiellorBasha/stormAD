@@ -14,16 +14,17 @@ classdef Modality < StormBase
         end
         
         function create(obj)
-            properties = struct('id', obj.modality_id, 'name', obj.name, 'dataset_id', obj.dataset_id);
+            properties = struct('id', obj.modality_id, 'datasetId', obj.dataset_id, 'name', obj.name);
             if ~obj.nodeExists('Modality', properties)
                 obj.createNode('Modality', properties);
+                obj.createRelationship('Dataset', obj.dataset_id, 'HAS_MODALITY', 'Modality', obj.modality_id, struct());
             else
-                error('Modality with id %s already exists.', obj.modality_id);
+                error('Modality with ID %s already exists.', obj.modality_id);
             end
         end
         
-        function node = read(obj, id)
-            node = obj.readNode('Modality', id);
+        function modality = read(obj, id)
+            modality = obj.readNode('Modality', id);
         end
         
         function update(obj, id, properties)
@@ -31,6 +32,7 @@ classdef Modality < StormBase
         end
         
         function delete(obj, id)
+            obj.deleteRelationship('Dataset', obj.dataset_id, 'HAS_MODALITY', 'Modality', id);
             obj.deleteNode('Modality', id);
         end
     end

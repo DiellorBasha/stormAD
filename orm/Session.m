@@ -14,9 +14,10 @@ classdef Session < StormBase
         end
         
         function create(obj)
-            properties = struct('id', obj.session_id, 'participant_id', obj.participant_id, 'name', obj.name);
+            properties = struct('id', obj.session_id, 'participantId', obj.participant_id, 'name', obj.name);
             if ~obj.nodeExists('Session', properties)
                 obj.createNode('Session', properties);
+                obj.createRelationship('Participant', obj.participant_id, 'HAS_SESSION', 'Session', obj.session_id, struct());
             else
                 error('Session with id %s already exists.', obj.session_id);
             end
@@ -31,6 +32,7 @@ classdef Session < StormBase
         end
         
         function delete(obj, id)
+            obj.deleteRelationship('Participant', obj.participant_id, 'HAS_SESSION', 'Session', id);
             obj.deleteNode('Session', id);
         end
     end

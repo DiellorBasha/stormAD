@@ -55,6 +55,43 @@ classdef StormBase
             result = executeCypher(obj.graphconn, query);
             exists = ~isempty(result);
         end
+        
+        % Relationship CRUD operations
+        function createRelationship(obj, fromLabel, fromId, relType, toLabel, toId, relProperties)
+            if nargin < 7
+                relProperties = struct();
+            end
+            relProps = StormBase.constructProps(relProperties);
+            query = sprintf('MATCH (a:%s {id: "%s"}), (b:%s {id: "%s"}) CREATE (a)-[r:%s %s]->(b)', fromLabel, fromId, toLabel, toId, relType, relProps);
+            executeCypher(obj.graphconn, query);
+        end
+        
+        function relationship = readRelationship(obj, fromLabel, fromId, relType, toLabel, toId)
+            query = sprintf('MATCH (a:%s {id: "%s"})-[r:%s]->(b:%s {id: "%s"}) RETURN r', fromLabel, fromId, relType, toLabel, toId);
+            result = executeCypher(obj.graphconn, query);
+            if isempty(result)
+                error('No relationship found between %s and %s', fromId, toId);
+            end
+            relationship = table2struct(result);
+        end
+        
+        function updateRelationship(obj, fromLabel, fromId, relType, toLabel, toId, relProperties)
+            setClause = '';
+            fields = fieldnames(relProperties);
+            for i = 1:numel(fields)
+                if i > 1
+                    setClause = [setClause, ', '];
+                end
+                setClause = [setClause, sprintf('r.%s = "%s"', fields{i}, relProperties.(fields{i}))];
+            end
+            query = sprintf('MATCH (a:%s {id: "%s"})-[r:%s]->(b:%s {id: "%s"}) SET %s', fromLabel, fromId, relType, toLabel, toId, setClause);
+            executeCypher(obj.graphconn, query);
+        end
+        
+        function deleteRelationship(obj, fromLabel, fromId, relType, toLabel, toId)
+            query = sprintf('MATCH (a:%s {id: "%s"})-[r:%s]->(b:%s {id: "%s"}) DELETE r', fromLabel, fromId, relType, toLabel, toId);
+            executeCypher(obj.graphconn, query);
+        end
     end
     
     methods(Static)

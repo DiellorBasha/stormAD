@@ -17,6 +17,7 @@ classdef Task < StormBase
             properties = struct('id', obj.task_id, 'dataId', obj.data_id, 'name', obj.name);
             if ~nodeExists(obj, 'Task', properties)
                 createNode(obj, 'Task', properties);
+                obj.createRelationship('Data', obj.data_id, 'HAS_TASK', 'Task', obj.task_id, struct());
             else
                 warning('Task with ID %s already exists.', obj.task_id);
             end
@@ -31,6 +32,7 @@ classdef Task < StormBase
         end
         
         function delete(obj, id)
+            obj.deleteRelationship('Data', obj.data_id, 'HAS_TASK', 'Task', id);
             deleteNode(obj, 'Task', id);
         end
     end
