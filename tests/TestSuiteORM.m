@@ -1,7 +1,7 @@
 %% Example Title
 % Summary of example objective
 % Create a test suite and run the tests for each class
-suite = testsuite({'TestDataset', 'TestModality', 'TestParticipant', 'TestSession', 'TestData', 'TestIntegration'});
+suite = testsuite({'TestDataset', 'TestModality', 'TestDerivatives', 'TestParticipant', 'TestSession', 'TestData', 'TestIntegration'});
 results = run(suite);
 disp(results);
 

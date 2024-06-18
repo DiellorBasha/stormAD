@@ -4,7 +4,7 @@ fproj = matlab.project.rootProject;
     dbconfig = read_dbconfig('dbconfig.txt');
 
     % Establish a connection to the Neo4j database
-    neo4jconn = neo4j(dbconfig.NEO4J_URL, dbconfig.NEO4J_USERNAME, dbconfig.NEO4J_PASSWORD);
+    graphconn = neo4j(dbconfig.NEO4J_URL, dbconfig.NEO4J_USERNAME, dbconfig.NEO4J_PASSWORD);
 
     % Check if the connection was successful
     if ~isempty(neo4jconn.Message)

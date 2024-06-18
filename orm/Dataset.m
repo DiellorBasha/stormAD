@@ -13,23 +13,23 @@ classdef Dataset < StormBase
         
         function create(obj)
             properties = struct('id', obj.dataset_id, 'name', obj.name);
-            if ~nodeExists(obj, 'Dataset', properties)
-                createNode(obj, 'Dataset', properties);
+            if ~obj.nodeExists('Dataset', properties)
+                obj.createNode('Dataset', properties);
             else
-                warning('Dataset with ID %s already exists.', obj.dataset_id);
+                error('Dataset with id %s already exists.', obj.dataset_id);
             end
         end
         
-        function dataset = read(obj, id)
-            dataset = readNode(obj, 'Dataset', id);
+        function node = read(obj, id)
+            node = obj.readNode('Dataset', id);
         end
         
         function update(obj, id, properties)
-            updateNode(obj, 'Dataset', id, properties);
+            obj.updateNode('Dataset', id, properties);
         end
         
         function delete(obj, id)
-            deleteNode(obj, 'Dataset', id);
+            obj.deleteNode('Dataset', id);
         end
     end
 end
