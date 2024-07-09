@@ -3,14 +3,16 @@ classdef Modality < StormBase
         modality_id
         dataset_id
         name
+        path
     end
     
     methods
-        function obj = Modality(graphconn, modality_id, dataset_id, name)
+        function obj = Modality(graphconn, modality_id, dataset_id, name, path)
             obj@StormBase(graphconn);
             obj.modality_id = modality_id;
             obj.dataset_id = dataset_id;
             obj.name = name;
+            obj.path = path;
         end
         
         function create(obj)
