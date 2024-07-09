@@ -1,39 +1,48 @@
 classdef TestDataset < TestBase
+    properties (TestParameter)
+        datasetName = {'Brain Health Study 1', 'Brain Health Study 2', 'Brain Health Study 3'};
+        updatedName = {'Updated Study 1', 'Updated Study 2', 'Updated Study 3'};
+    end
+    
+    properties (MethodSetupParameter)
+        datasetId = {'dataset_id_test1', 'dataset_id_test2', 'dataset_id_test3'};
+    end
+
     methods(TestMethodSetup)
-        function setup(testCase)
+        function setup(testCase, datasetId)
             % Ensure the node does not exist before each test
-            executeCypher(testCase.graphconn, 'MATCH (d:Dataset {id: "dataset_id_test"}) DETACH DELETE d');
+            executeCypher(testCase.graphconn, sprintf('MATCH (d:Dataset {id: "%s"}) DETACH DELETE d', datasetId));
         end
     end
     
     methods(Test)
-        function testCreateDataset(testCase)
-            dataset = Dataset(testCase.graphconn, 'dataset_id_test', 'Brain Health Study');
+        function testCreateDataset(testCase, datasetId, datasetName)
+            dataset = Dataset(testCase.graphconn, datasetId, datasetName);
             dataset.create();
-            result = executeCypher(testCase.graphconn, 'MATCH (d:Dataset {id: "dataset_id_test"}) RETURN d');
+            result = executeCypher(testCase.graphconn, sprintf('MATCH (d:Dataset {id: "%s"}) RETURN d', datasetId));
             testCase.verifyNotEmpty(result, 'Dataset node was not created.');
         end
         
-        function testReadDataset(testCase)
-            dataset = Dataset(testCase.graphconn, 'dataset_id_test', 'Brain Health Study');
+        function testReadDataset(testCase, datasetId, datasetName)
+            dataset = Dataset(testCase.graphconn, datasetId, datasetName);
             dataset.create();
-            datasetNode = dataset.read('dataset_id_test');
-            testCase.verifyEqual(datasetNode.n.name, 'Brain Health Study', 'Dataset name does not match.');
+            datasetNode = dataset.read(datasetId);
+            testCase.verifyEqual(datasetNode.n.name, datasetName, 'Dataset name does not match.');
         end
         
-        function testUpdateDataset(testCase)
-            dataset = Dataset(testCase.graphconn, 'dataset_id_test', 'Brain Health Study');
+        function testUpdateDataset(testCase, datasetId, datasetName, updatedName)
+            dataset = Dataset(testCase.graphconn, datasetId, datasetName);
             dataset.create();
-            dataset.update('dataset_id_test', struct('name', 'Updated Study'));
-            datasetNode = dataset.read('dataset_id_test');
-            testCase.verifyEqual(datasetNode.n.name, 'Updated Study', 'Dataset name was not updated.');
+            dataset.update(datasetId, struct('name', updatedName));
+            datasetNode = dataset.read(datasetId);
+            testCase.verifyEqual(datasetNode.n.name, updatedName, 'Dataset name was not updated.');
         end
         
-        function testDeleteDataset(testCase)
-            dataset = Dataset(testCase.graphconn, 'dataset_id_test', 'Brain Health Study');
+        function testDeleteDataset(testCase, datasetId, datasetName)
+            dataset = Dataset(testCase.graphconn, datasetId, datasetName);
             dataset.create();
-            dataset.delete('dataset_id_test');
-            result = executeCypher(testCase.graphconn, 'MATCH (d:Dataset {id: "dataset_id_test"}) RETURN d');
+            dataset.delete(datasetId);
+            result = executeCypher(testCase.graphconn, sprintf('MATCH (d:Dataset {id: "%s"}) RETURN d', datasetId));
             testCase.verifyEmpty(result, 'Dataset node was not deleted.');
         end
     end
