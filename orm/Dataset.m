@@ -2,13 +2,15 @@ classdef Dataset < StormBase
     properties
         dataset_id
         name
+        path
     end
     
     methods
-        function obj = Dataset(graphconn, dataset_id, name)
+        function obj = Dataset(graphconn, dataset_id, name, path)
             obj@StormBase(graphconn);
             obj.dataset_id = dataset_id;
             obj.name = name;
+            obj.path = path;
         end
         
         function create(obj)
