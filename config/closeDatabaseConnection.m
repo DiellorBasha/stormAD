@@ -1,1 +1,0 @@
-close(neo4jconn)

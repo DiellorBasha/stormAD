@@ -1,53 +1,30 @@
 
-function fs_pet_coreg (sourceSubject)
+function registrationFile = fs_pet_coreg (subjectsDir, sourceSubject, templatePETDirectory, templateFile)
 
-subjectsDir = '/export02/export01/data/toolboxes/freesurfer/subjects';
-sourceDirectory  = fullfile (sourceSubject, 'pet', 'derivatives', 'vlpp', 'ses-01');
+% give full path to volume
+templatePET = fullfile(templatePETDirectory, templateFile);
+    [~, a , ~] =fileparts(templateFile);
+    [~, b , ~] =fileparts(a);
 
-targetSubject = sprintf([sourceSubject 'a']);
-targetDirectory  = fullfile (targetSubject, 'pet', 'coreg');
+registeredPET = fullfile(templatePETDirectory, strcat(b,'.reg.lta'));
 
-  % List all files in the anat folder
-    pet_files = dir(fullfile(subjectsDir, sourceDirectory, '*.nii.gz'));
+cmd = ['mri_coreg'...
+    ' --s ' sourceSubject ...
+    ' --mov ' templatePET ...
+    ' --reg ' registeredPET ...
+    ' --threads 15'];
 
-     % Check for multiple T1-weighted runs
-    suvr_files = {};
-    for j = 1:length(pet_files)
-        if contains(pet_files(j).name, '_suvr')
-            suvr_files{end+1} = pet_files(j).name;
-        end
-    end
+disp([' ' ...
+    'Processing completed for ', sourceSubject])
 
 
-relativePaths = extractRelativePaths(suvr_files, 'trc-');
+log_file = fullfile(templatePETDirectory, strcat(b, '_fs_pet_coreg_log.txt'));
+diary(log_file);
 
-for jj=1:length(relativePaths)
-
-path2petNifti = fullfile(sourceDirectory, suvr_files{jj});
-
-[a,b,c] = fileparts(relativePaths{jj});
-[a,outputDirectory,c] = fileparts(b);
-
-path2outputFolder = fullfile(subjectsDir, targetDirectory, outputDirectory);
-if ~exist(path2outputFolder)
-mkdir(path2outputFolder)
-end
-
-path2fsoutput = fullfile(targetDirectory, outputDirectory, 'template.reg.lta');
- 
-log_file = fullfile(path2outputFolder, 'fs_pet_coreg_log.txt');
-
-cmd = ['mri_coreg --s ' targetSubject ' --mov $SUBJECTS_DIR/' path2petNifti ' --reg $SUBJECTS_DIR/' path2fsoutput ' --threads 15'];
-full_cmd = sprintf('export FREESURFER_HOME=%s; source $FREESURFER_HOME/SetUpFreeSurfer.sh; %s', ...
-                            getenv('FREESURFER_HOME'), cmd);
- diary(log_file);
-system(full_cmd);
+fs_execute(cmd);
   
-disp(['Processing completed for ', sourceSubject])
+ diary off 
 
-
-diary off
+registrationFile = registeredPET;
 
 end
-end
-

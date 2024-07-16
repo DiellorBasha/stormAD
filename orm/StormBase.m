@@ -2,11 +2,13 @@ classdef StormBase
     properties
         id
         graphconn
+        path % Add the path property to StormBase
     end
     
     methods
-        function obj = StormBase(graphconn)
+        function obj = StormBase(graphconn, path)
             obj.graphconn = graphconn;
+            obj.path = path;
         end
         
         function createNode(obj, label, properties)
@@ -91,6 +93,14 @@ classdef StormBase
         function deleteRelationship(obj, fromLabel, fromId, relType, toLabel, toId)
             query = sprintf('MATCH (a:%s {id: "%s"})-[r:%s]->(b:%s {id: "%s"}) DELETE r', fromLabel, fromId, relType, toLabel, toId);
             executeCypher(obj.graphconn, query);
+        end
+        
+        % New function to read contents of the folder
+        function contents = readContents(obj)
+            % List all items in the directory
+            dirContents = dir(obj.path);
+            % Remove . and .. from the list
+            contents = dirContents(~ismember({dirContents.name}, {'.', '..'}));
         end
     end
     

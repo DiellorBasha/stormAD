@@ -13,7 +13,7 @@ classdef TestORM < matlab.unittest.TestCase
             testCase.modality = Modality(testCase.graphconn, 'modality_id_test', 'dataset_id_test', 'PET');
             testCase.participant = Participant(testCase.graphconn, 'participant_id_test', 'modality_id_test', '', 'John Doe');
             testCase.session = Session(testCase.graphconn, 'session_id_test', 'participant_id_test', 'Baseline');
-            testCase.data = Data(testCase.graphconn, 'data_id_test', 'session_id_test', 'DataType');
+            testCase.data = Scan(testCase.graphconn, 'data_id_test', 'session_id_test', 'DataType');
         end
     end
     

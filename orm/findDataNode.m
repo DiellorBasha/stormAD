@@ -20,7 +20,7 @@ function dataNode = findDataNode(graphconn, modality_name, participant_id, sessi
     modality = Modality(graphconn, modalityNode.id, modalityNode.datasetId, modalityNode.name);
     participant = Participant(graphconn, participantNode.id, modalityNode.id, participantNode.derivativesId, participantNode.name);
     session = Session(graphconn, sessionNode.id, participantNode.id, sessionNode.name);
-    data = Data(graphconn, dataNode.id, sessionNode.id, dataNode.type);
+    data = Scan(graphconn, dataNode.id, sessionNode.id, dataNode.type);
     
     % Return the Data node instance
     dataNode = data;

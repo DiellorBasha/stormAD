@@ -41,7 +41,7 @@ classdef TestIntegration < TestBase
             testCase.verifyNotEmpty(result.s, 'Session node was not created.');
             
             % Create Data
-            data = Data(testCase.graphconn, 'data_id_test', 'session_id_test', 'MRI Data', 'anat', 'intensity', 1.23, 'measurement', 'value');
+            data = Scan(testCase.graphconn, 'data_id_test', 'session_id_test', 'MRI Data', 'anat', 'intensity', 1.23, 'measurement', 'value');
             data.create();
             result = executeCypher(testCase.graphconn, 'MATCH (d:Data {id: "data_id_test"}) RETURN d');
             testCase.verifyNotEmpty(result.d, 'Data node was not created.');

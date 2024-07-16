@@ -1,23 +1,29 @@
-classdef Session < StormBase
+classdef Session < Subject
     properties
         session_id
-        participant_id
-        name
+        session_name % Use session_name to avoid conflict with the inherited name property
+        subject % An instance of the Subject class
     end
     
     methods
-        function obj = Session(graphconn, session_id, participant_id, name)
-            obj@StormBase(graphconn);
+        function obj = Session(subject, session_id, session_name, path)
+            if nargin < 4
+                % If path is not provided, default to fullfile(Subject.path, session_name)
+                path = fullfile(subject.path, session_name);
+            end
+            % Use the Subject instance to set graphconn and path
+            obj@Subject(subject.datasets, subject.derivatives, subject.subject_id, subject.subject_name); % Call the parent constructor with Subject properties
             obj.session_id = session_id;
-            obj.participant_id = participant_id;
-            obj.name = name;
+            obj.session_name = session_name;
+            obj.subject = subject;
+            obj.path = path; % Set the path property to the constructed path
         end
         
         function create(obj)
-            properties = struct('id', obj.session_id, 'participantId', obj.participant_id, 'name', obj.name);
+            properties = struct('id', obj.session_id, 'subjectId', obj.subject_id, 'name', obj.session_name);
             if ~obj.nodeExists('Session', properties)
                 obj.createNode('Session', properties);
-                obj.createRelationship('Participant', obj.participant_id, 'HAS_SESSION', 'Session', obj.session_id, struct());
+                obj.createRelationship('Subject', obj.subject_id, 'HAS_SESSION', 'Session', obj.session_id, struct());
             else
                 error('Session with id %s already exists.', obj.session_id);
             end
@@ -32,7 +38,7 @@ classdef Session < StormBase
         end
         
         function delete(obj, id)
-            obj.deleteRelationship('Participant', obj.participant_id, 'HAS_SESSION', 'Session', id);
+            obj.deleteRelationship('Subject', obj.subject_id, 'HAS_SESSION', 'Session', id);
             obj.deleteNode('Session', id);
         end
     end
