@@ -35,3 +35,5 @@ codegen/
 # Database config files
 config/dbconfig.m
 config/dbconfig.txt
+data/PAD7
+derived
