@@ -38,9 +38,7 @@ config/dbconfig.txt
 data/PAD7
 derived
 data/user/
+config/remoteConfig.txt
+config/dbconfigData.m
 requirements/
 resources/
-config/remoteConfig.txt
-.vscode/settings.json
-.vscode/c_cpp_properties.json
-config/dbconfigData.m
