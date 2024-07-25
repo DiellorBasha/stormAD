@@ -3,6 +3,11 @@ classdef UserConfig
         % User Information
         username
         email
+        
+        % Project Paths
+        brainstormUserDir
+        stormADProjectDir
+        stormADUserDir
         sshKeyPath
         
         % Windows Environment
@@ -36,6 +41,12 @@ classdef UserConfig
                 obj.configFile = configFile;
             end
             
+            % Set default paths
+            obj.brainstormUserDir = fullfile(getenv('USERPROFILE'), '.brainstorm');
+            obj.stormADProjectDir = fullfile(fileparts(matlabroot), 'brainstorm3', 'external', 'stormAD');
+            obj.stormADUserDir = fullfile(obj.brainstormUserDir, '.stormAD');
+            obj.sshKeyPath = fullfile(obj.stormADUserDir, '.ssh', 'id_rsa');
+            
             if exist(obj.configFile, 'file')
                 obj = obj.loadConfig();
             else
@@ -44,13 +55,12 @@ classdef UserConfig
         end
         
         function obj = promptUserInput(obj)
-            % Prompt user for all necessary information
+            % Prompt user for necessary information
             obj.username = input('Enter your username: ', 's');
             obj.email = input('Enter your email: ', 's');
-            obj.sshKeyPath = input('Enter path to SSH key (leave blank if not using): ', 's');
             
             obj.matlabPath = matlabroot;
-            obj.winScriptDir = input('Enter Windows script directory: ', 's');
+            obj.winScriptDir = fullfile(obj.stormADProjectDir, 'scripts');
             
             obj.wslDistro = input('Enter WSL distribution (e.g., Ubuntu): ', 's');
             obj.wslUsername = input('Enter WSL username: ', 's');
@@ -61,14 +71,20 @@ classdef UserConfig
             obj.remoteWorkDir = input('Enter remote HPC working directory: ', 's');
             obj.remoteModules = input('Enter remote modules to load (comma-separated): ', 's');
             
-            % New prompts for database environment
-            obj.dbPath = input('Enter SQLite database path: ', 's');
-            obj.dbName = input('Enter SQLite database name: ', 's');
+            obj.dbPath = obj.stormADUserDir;
+            obj.dbName = 'stormAD.sqlite';
             
             obj.saveConfig();
         end
         
         function saveConfig(obj)
+            % Ensure the StormAD user directory exists
+            if ~exist(obj.stormADUserDir, 'dir')
+                mkdir(obj.stormADUserDir);
+            end
+            
+            % Save the configuration file in the StormAD user directory
+            obj.configFile = fullfile(obj.stormADUserDir, 'user_config.mat');
             save(obj.configFile, 'obj');
             fprintf('Configuration saved to %s\n', obj.configFile);
         end
@@ -92,9 +108,22 @@ classdef UserConfig
             disp(obj);
         end
         
-        % New method to get full database file path
         function dbFilePath = getDbFilePath(obj)
             dbFilePath = fullfile(obj.dbPath, obj.dbName);
+        end
+        
+        function ensureSSHKey(obj)
+            if ~exist(obj.sshKeyPath, 'file')
+                sshDir = fileparts(obj.sshKeyPath);
+                if ~exist(sshDir, 'dir')
+                    mkdir(sshDir);
+                end
+                % Generate SSH key (this is a placeholder - you'll need to implement the actual key generation)
+                system(['ssh-keygen -t rsa -b 4096 -f "' obj.sshKeyPath '" -N ""']);
+                fprintf('SSH key generated at %s\n', obj.sshKeyPath);
+            else
+                fprintf('SSH key already exists at %s\n', obj.sshKeyPath);
+            end
         end
     end
 end
