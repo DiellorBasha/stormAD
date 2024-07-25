@@ -1,4 +1,58 @@
 classdef UserConfig
+
+% UserConfig: Manages user configuration for the StormAD plugin in Brainstorm
+    %
+    % This class handles user-specific settings and environment configurations
+    % for the StormAD plugin, including:
+    %   - User information (username, email)
+    %   - Project paths (Brainstorm, StormAD)
+    %   - Windows and WSL environment settings
+    %   - Remote HPC configuration
+    %   - Database settings
+    %   - Brainstorm global data
+    %   - Plugin configuration
+    %
+    % The class provides methods for:
+    %   - Initializing and loading configurations
+    %   - Prompting user for input
+    %   - Saving and updating configurations
+    %   - Managing SSH keys
+    %   - Handling plugin configurations
+
+    %     Mandatory fields
+%     ================
+%     - 
+%     - 
+%     - 
+%     - 
+%
+%     Optional fields
+%     ===============
+
+% @=============================================================================
+% This class is part of the stormAD module of the Brainstorm software, developed
+% for the analysis of multimodal neuroimaging datasets in Alzheimer's Disease. 
+% https://neuroimage.usc.edu/brainstorm/stormAD
+%
+% It is distributed as an extension of the Brainstorm software 
+% https://neuroimage.usc.edu/brainstorm
+% 
+% Copyright (c) University of Southern California & McGill University
+% This software is distributed under the terms of the GNU General Public License
+% as published by the Free Software Foundation. Further details on the GPLv3
+% license can be found at http://www.gnu.org/copyleft/gpl.html.
+% 
+% FOR RESEARCH PURPOSES ONLY. THE SOFTWARE IS PROVIDED "AS IS," AND THE
+% UNIVERSITY OF SOUTHERN CALIFORNIA AND ITS COLLABORATORS DO NOT MAKE ANY
+% WARRANTY, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, NOR DO THEY ASSUME ANY
+% LIABILITY OR RESPONSIBILITY FOR THE USE OF THIS SOFTWARE.
+%
+% For more information type "brainstorm license" at command prompt.
+% =============================================================================@
+%
+% Authors: Diellor Basha, 2024-2026
+
     properties
         % User Information
         username
@@ -29,6 +83,10 @@ classdef UserConfig
         dbPath
         dbName
         
+        % Brainstorm Data
+        GlobalData
+        PluginConfig
+        
         % Configuration file path
         configFile
     end
@@ -46,6 +104,15 @@ classdef UserConfig
             obj.stormADProjectDir = fullfile(fileparts(matlabroot), 'brainstorm3', 'external', 'stormAD');
             obj.stormADUserDir = fullfile(obj.brainstormUserDir, '.stormAD');
             obj.sshKeyPath = fullfile(obj.stormADUserDir, '.ssh', 'id_rsa');
+            obj.PluginConfig = PluginConfig('stormAD');
+            
+            % Populate GlobalData
+            try
+                obj.GlobalData = db_template('GlobalData');
+            catch ME
+                warning('Failed to load Brainstorm GlobalData template: %s', ME.identifier, ME.message);
+                obj.GlobalData = struct();
+            end
             
             if exist(obj.configFile, 'file')
                 obj = obj.loadConfig();
@@ -124,6 +191,19 @@ classdef UserConfig
             else
                 fprintf('SSH key already exists at %s\n', obj.sshKeyPath);
             end
+        end
+        
+        function obj = updateGlobalData(obj)
+            try
+                obj.GlobalData = db_template('GlobalData');
+                fprintf('GlobalData updated successfully.\n');
+            catch ME
+                warning('Failed to update GlobalData: %s', ME.identifier, ME.message);
+            end
+        end
+        
+        function writePluginConfig(obj)
+            obj.PluginConfig.writeJSON(fullfile(obj.stormADProjectDir, 'config'));
         end
     end
 end
