@@ -20,8 +20,7 @@ function cmd = fs_recon_all(subject, t1, varargin)
     %   fs_recon_all('sub001', {'path/to/t1_1.nii', 'path/to/t1_2.nii'}, 'T2', 'path/to/T2.nii', 'threads', 15, 'autorecon', '-autorecon1', 'subjectDir', '/path/to/output')
     
     % Parse required and optional inputs
-    p = inputParser;
-    addRequired(p, 'subject', @(x) ischar(x) || isstring(x));
+    (x) || isstring(x));
     addRequired(p, 't1', @(x) ischar(x) || isstring(x) || iscell(x));
     addParameter(p, 'FLAIR', '', @(x) ischar(x) || isstring(x));
     addParameter(p, 'T2', '', @(x) ischar(x) || isstring(x));
@@ -69,4 +68,4 @@ function cmd = fs_recon_all(subject, t1, varargin)
     
     % Display completion message
     disp(['Processing completed for ', subject]);
-end
+    disp(cmd);cvv b=-
