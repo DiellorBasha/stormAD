@@ -465,6 +465,26 @@
       </propertySet>
       <elemProxy type="systemcomposer.services.proxy.ProxyTarget" uuid="f39b7a2d-0874-4704-bc7b-58f232d69fa6"/>
     </prototypes>
+    <prototypes type="systemcomposer.profile.Prototype" uuid="8934c0cb-f82e-4832-ba24-ab80c3e76a0b">
+      <componentHeaderColor type="systemcomposer.profile.RGBValueStruct">
+        <BLUE>41</BLUE>
+        <GREEN>105</GREEN>
+        <RED>255</RED>
+      </componentHeaderColor>
+      <icon>DATABASE</icon>
+      <p_Name>RAM</p_Name>
+      <defaultStereotypeMap type="systemcomposer.profile.DefaultStereotypeMap" uuid="84cc6ca9-529a-4e8b-bc64-ab23a9219f93"/>
+      <metaAttributes type="mf.zero.meta.AttributeMap" uuid="5b76135a-890a-4272-aad5-f02353f6b7b0"/>
+      <parentProxy type="systemcomposer.services.proxy.ProxySource" uuid="5537200f-7e6a-442f-b33e-bbd1ae985d13">
+        <Proxy type="systemcomposer.services.proxy.BidirectionalProxy" uuid="85960468-74ee-4383-aa65-2c7122135aaa"/>
+        <realElement type="systemcomposer.profile.Prototype" uuid="8934c0cb-f82e-4832-ba24-ab80c3e76a0b"/>
+      </parentProxy>
+      <propertySet type="systemcomposer.property.PropertySet" uuid="ea058b8c-26fb-4d66-9fba-e9d3d2afc356">
+        <p_Name>RAM</p_Name>
+        <elemProxy type="systemcomposer.services.proxy.ProxyTarget" uuid="d0a1af84-5667-4fec-b6f4-e3d9508fd958"/>
+      </propertySet>
+      <elemProxy type="systemcomposer.services.proxy.ProxyTarget" uuid="914001ad-925b-43ab-88f8-a28fa241cb80"/>
+    </prototypes>
     <prototypes type="systemcomposer.profile.Prototype" uuid="29976ce0-f590-4a60-b1fa-ce64b59be23f">
       <componentHeaderColor type="systemcomposer.profile.RGBValueStruct">
         <BLUE>25</BLUE>
@@ -623,10 +643,15 @@
       <min>0</min>
       <p_Name>uint8</p_Name>
     </valueTypes>
-    <p_Name>StormNetProfile</p_Name>
+    <p_Name>stormAD_Profile</p_Name>
     <elemProxy type="systemcomposer.services.proxy.ProxyTarget" uuid="0394b442-f48b-4e74-abff-1003bdbd6dc6"/>
   </systemcomposer.profile.Profile>
+  <systemcomposer.services.proxy.WorkspaceWrapper type="systemcomposer.services.proxy.WorkspaceWrapper" uuid="18417358-4e97-443b-99c6-b6453a488af4"/>
   <systemcomposer.services.proxy.ModelResolver type="systemcomposer.services.proxy.ModelResolver" uuid="306cef09-6d82-4536-8016-3ca4b37aeb06">
+    <Proxies type="systemcomposer.services.proxy.BidirectionalProxy" uuid="85960468-74ee-4383-aa65-2c7122135aaa">
+      <Source type="systemcomposer.services.proxy.ProxySource" uuid="5537200f-7e6a-442f-b33e-bbd1ae985d13"/>
+      <TargetId>2a9fea75-f764-44a9-9c26-cacaaaf1d909</TargetId>
+    </Proxies>
     <Proxies type="systemcomposer.services.proxy.BidirectionalProxy" uuid="18ffa07a-bfae-49ee-88aa-f0db634f4d58">
       <Source type="systemcomposer.services.proxy.ProxySource" uuid="1a8744d3-8d07-4a0e-8151-97f4056515d6"/>
       <Source type="systemcomposer.services.proxy.ProxySource" uuid="957a4cd8-8550-4782-a5da-b9c702875c6a"/>
@@ -646,14 +671,14 @@
       <TargetId>91ba9e98-f63f-42ab-a4a6-184dbf801933</TargetId>
     </Proxies>
     <modelType>PROFILE_MODEL</modelType>
-    <URI>StormNetProfile</URI>
+    <URI>stormAD_Profile</URI>
   </systemcomposer.services.proxy.ModelResolver>
   <systemcomposer.services.proxy.ModelIdentifier type="systemcomposer.services.proxy.ModelIdentifier" uuid="b0e2397e-5c31-4261-87cb-4ac6c047fc23">
-    <URI>StormNetProfile</URI>
+    <URI>stormAD_Profile</URI>
     <modelType>PROFILE_MODEL</modelType>
   </systemcomposer.services.proxy.ModelIdentifier>
   <systemcomposer.property.UnitQueryClientWrapper type="systemcomposer.property.UnitQueryClientWrapper" uuid="9ae099ec-e1ae-4d1a-a9d5-920ff629b2cf"/>
-  <systemcomposer.services.proxy.WorkspaceWrapper type="systemcomposer.services.proxy.WorkspaceWrapper" uuid="347d5939-9031-4659-980a-a17385c063c3"/>
+  <systemcomposer.services.proxy.WorkspaceWrapper type="systemcomposer.services.proxy.WorkspaceWrapper" uuid="fc6b6e92-22e7-4edd-bbf6-2272a849c0a6"/>
   <systemcomposer.services.proxy.ModelResolver type="systemcomposer.services.proxy.ModelResolver" uuid="0cffbf41-fbb5-4b2b-8706-bd014f026cba">
     <Proxies type="systemcomposer.services.proxy.UnidirectionalProxy" uuid="8145ee91-5071-4613-b425-91953207bcea">
       <Source type="systemcomposer.services.proxy.ProxySource" uuid="0d27b4b1-257e-48aa-ba64-868ddeac9eef"/>
@@ -743,5 +768,5 @@
       <TargetId>f8e19348-c691-424f-aeb1-186498eae159</TargetId>
     </Proxies>
   </systemcomposer.services.proxy.ModelResolver>
-  <systemcomposer.services.proxy.WorkspaceWrapper type="systemcomposer.services.proxy.WorkspaceWrapper" uuid="fc6b6e92-22e7-4edd-bbf6-2272a849c0a6"/>
+  <systemcomposer.services.proxy.WorkspaceWrapper type="systemcomposer.services.proxy.WorkspaceWrapper" uuid="347d5939-9031-4659-980a-a17385c063c3"/>
 </MF0>
