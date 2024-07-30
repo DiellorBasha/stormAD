@@ -1,5 +1,5 @@
 {
-  "Name": "Storm AD",
+  "Name": "stormAD",
   "Category": "Neuroimaging",
   "Version": "1.0.0",
   "AutoUpdate": 0,
@@ -24,7 +24,7 @@
   "DeleteFiles": [],
   "DeleteFilesBin": [],
   "InstallDate": "2024-07-30 11:19:06",
-  "SubFolder": "stormAD-master",
+  "SubFolder": "",
   "Path": [],
   "Processes": [],
   "isLoaded": 0,
