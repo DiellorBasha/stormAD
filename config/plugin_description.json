@@ -14,7 +14,7 @@
   "CompiledStatus": 0,
   "RequiredPlugs": [],
   "UnloadPlugs": [],
-  "LoadFolders": "*",
+  "LoadFolders": "{*}",
   "GetVersionFcn": [],
   "DownloadedFcn": [],
   "InstalledFcn": [],
