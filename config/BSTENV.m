@@ -52,16 +52,39 @@ classdef BSTENV
             obj.isJavacomponent = bst_get('isJavacomponent');
             obj.SystemMemory = bst_get('SystemMemory');
             obj.ByteOrder = bst_get('ByteOrder');
+            obj.saveToFile;
         end
         
-        function disp(obj)
-            % Custom display method for BSTENV objects
-            disp('Brainstorm Environment Settings:');
-            disp('--------------------------------');
-            props = properties(obj);
-            for i = 1:length(props)
-                fprintf('%s: %s\n', props{i}, string(obj.(props{i})));
+        function saveToFile(obj)
+            % Save the properties of BSTENV to a structure and save to file
+            bst_env.UserDir = obj.UserDir;
+            bst_env.BrainstormHomeDir = obj.BrainstormHomeDir;
+            bst_env.BrainstormUserDir = obj.BrainstormUserDir;
+            bst_env.BrainstormTmpDir = obj.BrainstormTmpDir;
+            bst_env.UserReportsDir = obj.UserReportsDir;
+            bst_env.UserMexDir = obj.UserMexDir;
+            bst_env.UserProcessDir = obj.UserProcessDir;
+            bst_env.UserDefaultsDir = obj.UserDefaultsDir;
+            bst_env.UserPluginsDir = obj.UserPluginsDir;
+            bst_env.BrainstormDbFile = obj.BrainstormDbFile;
+            bst_env.BrainstormDbDir = obj.BrainstormDbDir;
+            bst_env.Version = obj.Version;
+            bst_env.MatlabVersion = obj.MatlabVersion;
+            bst_env.MatlabReleaseName = obj.MatlabReleaseName;
+            bst_env.JavaVersion = obj.JavaVersion;
+            bst_env.isJavacomponent = obj.isJavacomponent;
+            bst_env.SystemMemory = obj.SystemMemory;
+            bst_env.ByteOrder = obj.ByteOrder;
+            
+            % Define the directory and file path
+            db_dir = fullfile(obj.BrainstormUserDir, '.stormAD');
+            if ~exist(db_dir, 'dir')
+                mkdir(db_dir);
             end
+            file_path = fullfile(db_dir, 'bst_env.mat');
+            
+            % Save the structure to the file
+            save(file_path, 'bst_env');
         end
     end
 end
