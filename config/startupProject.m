@@ -1,5 +1,5 @@
 fproj = matlab.project.rootProject;
-openGraphConn
+%openGraphConn
 
 % Set path to Dataset root foled
 setenv('DATASET_DIR', '/export02/data/dbasha/PAD7/data_release_7.0')

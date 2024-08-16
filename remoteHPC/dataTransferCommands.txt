@@ -1,0 +1,3 @@
+rsync -avz /home/dbasha/beluga-dtn/ dbasha@beluga.alliancecan.ca:/home/dbasha/projects/def-baillet/dbasha/beluga-dtn
+
+apptainer pull docker://bids/freesurfer

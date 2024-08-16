@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MF0 version="1.1" packageUris="http://schema.mathworks.com/mf0/faultinfo_datamodel/R2021a">
+  <faultinfo.FaultContainerSet type="faultinfo.FaultContainerSet" uuid="ba650652-b1ae-4d41-93be-172f284fe72d">
+    <conditionals type="faultinfo.conditional.Conditional" uuid="9024505d-15ce-428f-af15-0c8d60d69273">
+      <condition>x == true</condition>
+      <mustBeLogged>false</mustBeLogged>
+      <name>SampleConditional</name>
+      <resyncRefBlkID></resyncRefBlkID>
+      <resyncUUID>00000000-0000-0000-0000-000000000000</resyncUUID>
+      <symbols type="faultinfo.conditional.ExpressionSymbol" uuid="185471ee-5c67-45c5-b3f9-5b0034c84d3f">
+        <expression>true</expression>
+        <name>x</name>
+      </symbols>
+    </conditionals>
+    <isEnabled>false</isEnabled>
+    <lastUpdatedAt>2024-07-18T16:38:09</lastUpdatedAt>
+    <modelName>StormNetArchitecture</modelName>
+    <modelUUID>33df3182-75e5-4d8e-87ac-00c264c4c4c5</modelUUID>
+  </faultinfo.FaultContainerSet>
+</MF0>
