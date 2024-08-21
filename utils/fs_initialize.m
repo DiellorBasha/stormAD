@@ -15,7 +15,7 @@ inputMRIDir = '/export02/data/dbasha/PAD7/data_release_7.0/mri/wave1/';
 inputPETDir = '/export02/data/dbasha/PAD7/data_release_7.0/pet/';
 inputDerivativesDir = '/export02/data/dbasha/PAD7/data_release_7.0/pet/derivatives/vlpp/';
 freesurferHome = '/export01/data/toolboxes/freesurfer/';
-stormNetUtilsDir = '/export01/data/dbasha/code/StormNet/utils';
+stormNetUtilsDir = '/export01/data/dbasha/code/StormNet1/utils';
 
 % Define base output directories (not subject-specific)
 outputPETDir = 'pet';

@@ -64,7 +64,7 @@ function cmd = fs_recon_all(subject, t1, varargin)
     end
     
     % Execute the command
-  %  fs_execute(cmd);
+   fs_execute(cmd);
     
     % Display completion message
     disp(['Processing completed for ', subject]);

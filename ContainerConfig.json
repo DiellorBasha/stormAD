@@ -1,0 +1,6 @@
+{
+    "LinuxDaemonCommunication": {
+        "CommandChannelPort":"5555",
+        "LogChannelPort":"5556"
+    }
+}
