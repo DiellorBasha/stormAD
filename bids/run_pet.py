@@ -76,3 +76,5 @@ if pet_files:
             print(f"Subject: {subject}, Session: {session}, Files: {files}")
 else:
     print("No PET files found.")
+
+
